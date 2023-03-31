@@ -1,0 +1,5 @@
+matplotlib
+orjson
+python-dotenv
+requests
+scikit-learn

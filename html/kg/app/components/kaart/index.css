@@ -1,0 +1,9 @@
+#kaart {
+    /* overflowing tooltip. */
+    overflow: hidden;
+    /* contain the canvas. */
+    position: relative;
+}
+.deck-tooltip {
+    margin: 0 0 0 30px;
+}

@@ -1,0 +1,69 @@
+#controls {
+    display: grid;
+    grid:
+        "fracties periode dagen stadsdelen wijken weergave" min-content
+        "overige overige overige overige overige info" 1fr
+        / 130px 260px 230px 180px 300px 1fr;
+    gap: .5rem 1rem;
+    place-items: stretch;
+    padding: .5rem;
+}
+#controls section {
+    gap: .25rem;
+}
+#controls h4 {
+    margin: 0;
+}
+#controls option[disabled] {
+    display: none;
+}
+
+#fracties {
+    grid-area: fracties;
+}
+#periode {
+    grid-area: periode;
+}
+#dagen {
+    grid-area: dagen;
+}
+#stadsdelen {
+    grid-area: stadsdelen;
+}
+#wijken {
+    grid-area: wijken;
+}
+#weergave {
+    grid-area: weergave;
+    max-width: 170px;
+}
+#overige {
+    grid-area: overige;
+}
+#info {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: .5rem;
+    grid-area: info;
+    justify-self: end;
+}
+
+#fracties select {
+    flex: 1 1 100%;
+    overflow-y: auto;
+}
+#fracties option {
+    padding-top: 1px;
+}
+
+#download {
+    color: darkgreen;
+    font-variant: small-caps;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.shortcuts {
+    gap: .5rem;
+    justify-content: flex-end;
+}

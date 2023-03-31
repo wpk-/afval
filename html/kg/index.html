@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="stylesheet" href="bundle.css">
+<script type="module" src="bundle.js"></script>
+<body id="app">
+    <form id="controls">
+        <section class="v" id="fracties">
+            <h4>Fractie</h4>
+            <select name="fractie" size="9" multiple>
+                <option value="" selected>[ alle ]</option>
+                <option value="GFT">GFT</option>
+                <option value="Glas">Glas</option>
+                <option value="Papier">Papier</option>
+                <option value="Plastic">Plastic</option>
+                <option value="Rest">Rest</option>
+                <option value="Textiel">Textiel</option>
+            </select>
+        </section>
+        <section class="v" id="periode">
+            <h4>Periode</h4>
+            <section class="v">
+                <label class="h spread">
+                    <span>van</span>
+                    <input type="week" name="weekvan">
+                </label>
+                <label class="h spread">
+                    <span>t/m</span>
+                    <input type="week" name="weektot" data-offset="604800000">
+                    <!-- 7 * 24 * 60 * 60 * 1000 = 604800000 -->
+                </label>
+            </section>
+            <div class="h shortcuts bottomgap">
+                <a href="#een-week-terug" class="shortcut no-underline">←</a> /
+                <a href="#vorige-week" class="shortcut">vorige week</a> /
+                <a href="#deze-week" class="shortcut">deze week</a> /
+                <a href="#een-week-verder" class="shortcut no-underline">→</a>
+            </div>
+            <section class="v">
+                <label class="h spread">
+                    <span>begintijd</span>
+                    <input type="time" name="tijdvan" value="00:00">
+                </label>
+                <label class="h spread">
+                    <span>eindtijd</span>
+                    <input type="time" name="tijdtot" value="00:00">
+                </label>
+            </section>
+            <div class="h shortcuts">
+                <a href="#dag" class="shortcut">dag</a> /
+                <a href="#avond" class="shortcut">avond</a> /
+                <a href="#nacht" class="shortcut">nacht</a> /
+                <a href="#24uur" class="shortcut">24 uur</a>
+            </div>
+        </section>
+        <section class="v" id="dagen">
+            <h4>Dag</h4>
+            <div class="v">
+                <label><input type="checkbox" name="weekdag" value="1"> <span>maandag</span></label>
+                <label><input type="checkbox" name="weekdag" value="2"> <span>dinsdag</span></label>
+                <label><input type="checkbox" name="weekdag" value="3"> <span>woensdag</span></label>
+                <label><input type="checkbox" name="weekdag" value="4"> <span>donderdag</span></label>
+                <label><input type="checkbox" name="weekdag" value="5"> <span>vrijdag</span></label>
+                <label><input type="checkbox" name="weekdag" value="6"> <span>zaterdag</span></label>
+                <label><input type="checkbox" name="weekdag" value="0"> <span>zondag</span></label>
+            </div>
+            <div class="h shortcuts">
+                <a href="#werkweek" class="shortcut">werkweek</a> /
+                <a href="#weekend" class="shortcut">weekend</a> /
+                <a href="#deze-dag" class="shortcut">deze dag</a>
+            </div>
+        </section>
+        <section class="v" id="stadsdelen">
+            <h4>Stadsdeel</h4>
+            <select name="stadsdeel" size="10" multiple>
+                <option value="" selected>[ alle ]</option>
+                <option>Centrum</option>
+                <option>Nieuw-West</option>
+                <option>Noord</option>
+                <option>Oost</option>
+                <option>Weesp</option>
+                <option>West</option>
+                <option>Westpoort</option>
+                <option>Zuid</option>
+                <option>Zuidoost</option>
+            </select>
+        </section>
+        <section class="v" id="wijken">
+            <h4>Wijk</h4>
+            <select name="wijk" size="10" multiple>
+                <option value="" selected>[ alle ]</option>
+            </select>
+        </section>
+        <section class="v" id="weergave">
+            <h4>Weergave</h4>
+            <div class="v bottomgap" id="beeld">
+                <label><input type="checkbox" name="weergave" value="lijst" checked> <span>lijst</span></label>
+                <label><input type="checkbox" name="weergave" value="kaart" checked> <span>kaart</span></label>
+            </div>
+            <div class="grid">
+                <span class="align-right">markers</span>
+                <div class="v" id="markers">
+                    <label><input type="radio" name="plotmarkers" value="active" checked> <span>selectie</span></label>
+                    <label><input type="radio" name="plotmarkers" value="scroll"> <span>scroll</span></label>
+                </div>
+                <span class="align-right">kleur</span>
+                <select name="kleurschema" id="kleur">
+                    <option value="fractie" selected>Fractie</option>
+                    <option value="week_mod5">Week</option>
+                    <option value="weekdag_ma1">Weekdag</option>
+                    <option value="uur">Uur</option>
+                </select>
+            </label>
+        </section>
+        <section id="overige">
+            <ul class="h labelslist" id="extrafilters"></ul>
+        </section>
+        <aside id="info">
+            <span id="aantal">0 wegingen</span>
+            <button id="download">⇩ &nbsp;xlsx</button>
+        </aside>
+    </form>
+    <section id="lijst" class="tabulator"></section>
+    <section id="kaart"></section>
+</body>

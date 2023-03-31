@@ -1,0 +1,24 @@
+[sessie]
+amsterdam = "./cache/amsterdam.session.pickle"
+bammens = "./cache/bammens.session.pickle"
+welvaarts = "./cache/welvaarts.session.pickle"
+
+[data]
+clusters = "./data/bammens-clusters.json"
+container_types = "./data/bammens-container_types.json"
+containers = "./data/bammens-containers.json"
+fracties = "./data/bammens-fracties.json"
+putten = "./data/bammens-putten.json"
+
+wagens = "./data/welvaarts-wagens.json"
+wegingen = "./data/welvaarts-wegingen.json"
+
+buurten = "./data/amsterdam-buurten.json"
+stadsdelen = "./data/amsterdam-stadsdelen.json"
+wijken = "./data/amsterdam-wijken.json"
+
+[html]
+containers = "./html/kg/data/containers.min.json"
+gebieden = "./html/kg/data/gebieden.min.json"
+wegingen = "./html/kg/data/wegingen.min.json"
+wegingen-updates = "./html/kg/data/wegingen.3min.json"

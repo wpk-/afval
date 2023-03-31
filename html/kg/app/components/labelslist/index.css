@@ -1,0 +1,30 @@
+.labelslist {
+    flex-flow: row wrap;
+    gap: .5rem 1rem;
+    margin: 0;
+    padding: 0;
+}
+.labelslist.h {
+    /* takes precedence over .h */
+    flex-flow: row wrap;
+}
+
+.labelslist .label {
+    align-items: center;
+    background-color: #f0f0f0;
+    border: #808080 1px solid;
+    border-radius: .25rem;
+    display: flex;
+    flex: 0 0 max-content;
+    flex-flow: row nowrap;
+    font-family: Arial, sans-serif;
+    font-size: smaller;
+    gap: .25rem;
+    padding: .25rem;
+    width: max-content;
+}
+.labelslist .action {
+    font-size: .875rem;
+    padding: .1rem .1rem .1rem .5rem;
+    text-decoration: none;
+}

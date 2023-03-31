@@ -1,0 +1,46 @@
+@import url("./components/app/index.css");
+@import url("./components/header/index.css");
+@import url("./components/kaart/index.css");
+@import url("./components/labelslist/index.css");
+@import url("./components/tabel/index.css");
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.h {
+    align-items: stretch;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+}
+.v {
+    align-items: stretch;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+}
+.spread {
+    justify-content: space-between;
+    gap: .25rem;
+}
+
+.grid {
+    display: grid;
+    grid: auto auto / 1fr 1fr;
+    gap: 1rem;
+}
+.grid .align-right {
+    justify-self: end;
+}
+
+.bottomgap {
+    margin-bottom: 1rem;
+}
+
+.no-underline {
+    text-decoration: none;
+}

@@ -1,0 +1,25 @@
+{
+  "name": "afval",
+  "version": "1.0.0",
+  "description": "Inzicht.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "webpack"
+  },
+  "author": "Paul Koppen",
+  "license": "ISC",
+  "devDependencies": {
+    "@deck.gl/core": "^8.9.1",
+    "@deck.gl/geo-layers": "^8.9.2",
+    "@deck.gl/layers": "^8.9.1",
+    "css-loader": "^6.7.3",
+    "mini-css-extract-plugin": "^2.7.3",
+    "webpack": "^5.76.1",
+    "webpack-cli": "^5.0.1"
+  },
+  "browserslist": "> 5%, not dead, not IE 11",
+  "dependencies": {
+    "tabulator-tables": "^5.4.4"
+  }
+}

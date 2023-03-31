@@ -1,0 +1,25 @@
+.tabulator {
+    font-family: sans-serif;
+}
+/* header background */
+.tabulator .tabulator-header .tabulator-col {
+    background-color: #eeeeee;
+}
+/* body table row */
+.tabulator-row {
+    cursor: default;
+}
+.tabulator-row:hover,
+.tabulator-row.tabulator-row-even:hover {
+    background-color: #f6f6f6;
+}
+/* no vertical lines in the table */
+.tabulator-row .tabulator-cell {
+    border-right: none;
+}
+/*  */
+.tabulator-popup-container {
+    border: 1px solid #bbb;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.8);
+    font-family: sans-serif;
+}

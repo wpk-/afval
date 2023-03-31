@@ -1,0 +1,41 @@
+#app {
+    display: grid;
+    grid:
+        "filters filters" min-content
+        "lijst kaart" 1fr
+        / 1fr 1fr;
+    gap: 0 .5rem;
+    height: 100%;
+    width: 100%;
+}
+#controls {
+    grid-area: filters;
+}
+#lijst {
+    grid-area: lijst;
+}
+#kaart {
+    grid-area: kaart;
+}
+
+.hideLijst #kaart {
+    grid-area: 2 / 1 / 2 / 3;
+}
+.hideLijst #lijst {
+    display: none;
+}
+.hideKaart #kaart {
+    display: none;
+}
+.hideKaart #lijst {
+    grid-area: 2 / 1 / 2 / 3;
+}
+
+
+/* Kleurstandaard van Afval Circulair. */
+option[value="GFT"]::before {content: "∎"; background-color: rgb(65, 150, 72); color: rgb(65, 150, 72); display: inline-block; height: 1rem; margin-right: .5rem; width: 1rem;}
+option[value="Glas"]::before {content: "∎"; background-color: rgb(255, 194, 10); color: rgb(255, 194, 10); display: inline-block; height: 1rem; margin-right: .5rem; width: 1rem;}
+option[value="Papier"]::before {content: "∎"; background-color: rgb(0, 128, 198); color: rgb(0, 128, 198); display: inline-block; height: 1rem; margin-right: .5rem; width: 1rem;}
+option[value="Plastic"]::before {content: "∎"; background-color: rgb(241, 101, 35); color: rgb(241, 101, 35); display: inline-block; height: 1rem; margin-right: .5rem; width: 1rem;}
+option[value="Rest"]::before {content: "∎"; background-color: rgb(74, 89, 97); color: rgb(74, 89, 97); display: inline-block; height: 1rem; margin-right: .5rem; width: 1rem;}
+option[value="Textiel"]::before {content: "∎"; background-color: rgb(158, 31, 98); color: rgb(158, 31, 98); display: inline-block; height: 1rem; margin-right: .5rem; width: 1rem;}
