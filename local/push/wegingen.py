@@ -54,7 +54,7 @@ JSON = dict[str, Any]
 # Maximale afstand, in meters, van een weging tot de dichtstbijzijnde container.
 # Wegingen met een grotere afstand krijgen geen gebieden, containervolume, etc.
 # toegekend.
-MAX_AFSTAND = 25
+MAX_AFSTAND = 35
 
 
 clusterfractie = itemgetter('cluster_id', 'fractie')
@@ -356,7 +356,7 @@ def push(file_out: str, delta_file_out: str, data_files: dict[str, str],
     for w, (d, c) in zip(nieuwe_wegingen, matching_containers):
         w.update({
             'afstand': d,
-            'containers': c['_cf']['containers'] if c else [],
+            'containers': [],   # c['_cf']['containers'] if c else [],
             'containervolume': None,
             'afvalvolume': None,
             'cluster': '',
@@ -375,6 +375,15 @@ def push(file_out: str, delta_file_out: str, data_files: dict[str, str],
             'wijk': c['_buurt']['ligt_in'],
             'stadsdeel': c['_buurt']['ligt_in_stadsdeel'],
         })
+    
+    kale_wegingen = [w for w in nieuwe_wegingen if w['stadsdeel'] == '']
+    weging_buurt = Polylabel.label_containers(topo, kale_wegingen)
+
+    for w, b in zip(kale_wegingen, weging_buurt):
+        if b:
+            w['buurt'] = b['naam']
+            w['wijk'] = b['ligt_in']
+            w['stadsdeel'] = b['ligt_in_stadsdeel']
 
     WegingenJSON.save(delta_file_out, {
         'last_change': input_wegingen['last_change'],
