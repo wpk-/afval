@@ -173,8 +173,8 @@ export class Kaart {
                 new TileLayer(layerProps.kaart),
                 new PathLayer(layerProps.stadsdelen),
                 new PolygonLayer(layerProps.wijken),
-                new ScatterplotLayer(layerProps.containers),
                 new ScatterplotLayer(layerProps.wegingen),
+                new ScatterplotLayer(layerProps.containers),
                 new ScatterplotLayer(layerProps.highlight),
             ],
         })
