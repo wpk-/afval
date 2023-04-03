@@ -64,7 +64,7 @@ export class App {
     }
 
     _onControlsDownloadClick = (event) => {
-        this.tabel.download()
+        this.downloadWorkbook()
     }
 
     _onControlsFilterChange = (event) => {
@@ -132,6 +132,60 @@ export class App {
     _onTabelMouseLeave = (event) => {
         const row = event.detail
         this._tid = setTimeout(() => this.kaart.setData({highlight: []}), 50)
+    }
+
+    async downloadWorkbook() {
+        if (!window.XLSX) {
+            await loadScript('https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.mini.min.js')
+        }
+
+        const ms_per_dag = 24 * 60 * 60 * 1000
+        const rows = this.tabel
+        .getData('active')
+        .map(({systeem_id, volgnummer, kenteken, datum_ms, tijd_str, weekdag, fractie,
+               eerste_weging, tweede_weging, netto_gewicht, lon, lat, containers,
+               containervolume, afvalvolume, cluster, adres, buurt, wijk,
+               stadsdeel}) => ({
+            'Fractie': fractie,
+            'Kenteken': kenteken,
+            'Systeem ID': systeem_id,
+            'Volgnummer': volgnummer,
+            'Datum': Math.floor(datum_ms / ms_per_dag) + 25569,
+            'Tijd': (datum_ms % ms_per_dag) / ms_per_dag,
+            'Weekdag': weekdag,
+            'Eerste weging': eerste_weging,
+            'Tweede weging': tweede_weging,
+            'Netto gewicht': netto_gewicht,
+            'Latitude': lat,
+            'Longitude': lon,
+            'Containers': containers.join(', '),
+            'Cluster': cluster,
+            'Containervolume op locatie': containervolume,
+            'Afvalvolume op locatie': afvalvolume,
+            'Adres': adres,
+            'Buurt': buurt,
+            'Wijk': wijk,
+            'Stadsdeel': stadsdeel,
+        }))
+
+        const worksheet = XLSX.utils.json_to_sheet(rows)
+        formatColumn(worksheet, 4, 'd-m-yyyy')
+        formatColumn(worksheet, 5, 'hh:mm')
+
+        const workbook = XLSX.utils.book_new()
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Wegingen')
+        XLSX.writeFile(workbook, "wegingen.xlsx", {compression: true})
+
+        function formatColumn(ws, col, fmt) {
+            const range = XLSX.utils.decode_range(ws['!ref'])
+            // note: range.s.r + 1 skips the header row
+            for (let row = range.s.r + 1; row <= range.e.r; ++row) {
+                const ref = XLSX.utils.encode_cell({ r: row, c: col })
+                if (ws[ref] && ws[ref].t === 'n') {
+                    ws[ref].z = fmt
+                }
+            }
+        }
     }
 
     renderState() {
@@ -202,3 +256,15 @@ const completeRow = (row) => ({
     week_mod5: Math.floor((row.datum_ms + 345_600_000) / 604_800_000) % 5,
     ...row,
 })
+
+
+const loadScript = async (url) => {
+    return new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.addEventListener('load', resolve)
+        script.addEventListener('error', reject)
+        script.toggleAttribute('async')
+        script.setAttribute('src', url)
+        document.head.append(script)
+    })
+}

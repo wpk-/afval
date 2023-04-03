@@ -10,8 +10,6 @@ import FilterModule from 'tabulator-tables/src/js/modules/Filter/Filter.js'
 import FormatModule from 'tabulator-tables/src/js/modules/Format/Format.js'
 import InteractionModule from 'tabulator-tables/src/js/modules/Interaction/Interaction.js'
 import SortModule from 'tabulator-tables/src/js/modules/Sort/Sort.js'
-import DownloadModule from 'tabulator-tables/src/js/modules/Download/Download.js'
-import ExportModule from 'tabulator-tables/src/js/modules/Export/Export.js'
 
 Tabulator.registerModule([
     LayoutModule,
@@ -21,8 +19,6 @@ Tabulator.registerModule([
     FormatModule,
     InteractionModule,
     SortModule,
-    DownloadModule,
-    ExportModule,
 ])
 
 import {TabelState} from './state.js'
@@ -119,25 +115,6 @@ export class Tabel {
         .dispatchEvent(new CustomEvent('rowout', {detail: item}))
     }
 
-    async download() {
-        if (!window.XLSX) {
-            await loadScript('https://oss.sheetjs.com/sheetjs/xlsx.full.min.js')
-        }
-        this.tabular.download('xlsx', 'wegingen.xlsx', {
-            documentProcessing: (workbook) => {
-                workbook.Props = {
-                    Title: 'Checkout van wegingen',
-                    Subject: 'Wegingen',
-                    Author: 'Paul Koppen',
-                    Company: 'Gemeente Amsterdam',
-                    Comments: '',
-                    CreatedDate: new Date(),
-                }
-                return workbook
-            }
-        })
-    }
-
     // Required for state restore but not used.
     // Restored state is always empty.
     render() {}
@@ -151,6 +128,10 @@ export class Tabel {
         else {
             tabular.clearFilter()
         }
+    }
+
+    getData(selection) {
+        return this.tabular.getData(selection)
     }
 
     setData = async (data) => {
@@ -180,16 +161,4 @@ export class Tabel {
             methodArgs = args
         }
     }
-}
-
-
-const loadScript = async (url) => {
-    return new Promise((resolve, reject) => {
-        const script = document.createElement('script')
-        script.addEventListener('load', resolve)
-        script.addEventListener('error', reject)
-        script.toggleAttribute('async')
-        script.setAttribute('src', url)
-        document.head.append(script)
-    })
 }
