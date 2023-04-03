@@ -66,6 +66,9 @@ export class Tabel {
         // Mouse leaves the row.
         this.tabular.on('rowMouseLeave', this._onMouseLeave)
 
+        // Click on a specific row.
+        this.tabular.on('rowClick', this._onRowClick)
+
         // patches
         this.setData = this.#waitForTableBuilt(this.setData)
         this.setFilter = this.#waitForTableBuilt(this.setFilter)
@@ -113,6 +116,11 @@ export class Tabel {
         const item = row.getData()
         this.rootElement
         .dispatchEvent(new CustomEvent('rowout', {detail: item}))
+    }
+
+    _onRowClick = (_, row) => {
+        const item = row.getData()
+        this.rootElement.dispatchEvent(new CustomEvent('rowclick', {detail: item}))
     }
 
     // Required for state restore but not used.

@@ -118,7 +118,7 @@ export class Kaart {
         )
     }
 
-    render({kleurschema, plotMarkers, active, scroll}) {
+    render({kleurschema, plotMarkers, active, scroll, viewState}) {
         const state = this.#state
 
         let render = false
@@ -131,6 +131,12 @@ export class Kaart {
         if (plotMarkers && plotMarkers !== state.plotMarkers) {
             state.plotMarkers = plotMarkers
             render = true
+        }
+
+        if (viewState && viewState !== state.initialViewState) {
+            const {minZoom, maxZoom} = state.initialViewState
+            state.initialViewState = {...viewState, minZoom, maxZoom}
+            this.deck.setProps({initialViewState: state.initialViewState})
         }
 
         if (active) {

@@ -42,6 +42,7 @@ export class App {
         tabelElement.addEventListener('scroll', this._onTabelScroll)
         tabelElement.addEventListener('rowover', this._onTabelMouseEnter)
         tabelElement.addEventListener('rowout', this._onTabelMouseLeave)
+        tabelElement.addEventListener('rowclick', this._onTabelRowClick)
 
         this.#state = AppState.restore(rootNode.id, {})
 
@@ -132,6 +133,11 @@ export class App {
     _onTabelMouseLeave = (event) => {
         const row = event.detail
         this._tid = setTimeout(() => this.kaart.setData({highlight: []}), 50)
+    }
+
+    _onTabelRowClick = (event) => {
+        const row = event.detail
+        this.zoomTo(row.lon, row.lat, 17)
     }
 
     async downloadWorkbook() {
@@ -243,6 +249,16 @@ export class App {
         else {
             // console.log('Eerste delta kunnen we rustig negeren.')
         }
+    }
+
+    zoomTo(longitude, latitude, zoom=17) {
+        this.kaart.render({
+            viewState: {
+                longitude,
+                latitude,
+                zoom,
+            }
+        })
     }
 }
 
