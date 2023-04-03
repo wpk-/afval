@@ -137,7 +137,7 @@ export class App {
 
     _onTabelRowClick = (event) => {
         const row = event.detail
-        this.zoomTo(row.lon, row.lat, 17)
+        this.kaart.zoomTo(row.lon, row.lat, 17)
     }
 
     async downloadWorkbook() {
@@ -175,8 +175,8 @@ export class App {
         }))
 
         const worksheet = XLSX.utils.json_to_sheet(rows)
-        formatColumn(worksheet, 4, 'd-m-yyyy')
-        formatColumn(worksheet, 5, 'hh:mm')
+        formatColumn(worksheet, 3, 'd-m-yyyy')
+        formatColumn(worksheet, 4, 'hh:mm')
 
         const workbook = XLSX.utils.book_new()
         XLSX.utils.book_append_sheet(workbook, worksheet, 'Wegingen')
@@ -249,16 +249,6 @@ export class App {
         else {
             // console.log('Eerste delta kunnen we rustig negeren.')
         }
-    }
-
-    zoomTo(longitude, latitude, zoom=17) {
-        this.kaart.render({
-            viewState: {
-                longitude,
-                latitude,
-                zoom,
-            }
-        })
     }
 }
 
