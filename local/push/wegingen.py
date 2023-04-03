@@ -204,11 +204,12 @@ class Polylabel:
         n = len(containers)
         labels = [{} for _ in range(n)]
 
-        lon_lat = list(map(itemgetter('lon', 'lat'), containers))
-        lon_lat = np.array(lon_lat, dtype=float)
-        indices = np.flatnonzero(~(lon_lat[:, 0] == None))
+        if n > 0:
+            lon_lat = list(map(itemgetter('lon', 'lat'), containers))
+            lon_lat = np.array(lon_lat, dtype=float, ndmin=2)
+            indices = np.flatnonzero(~np.isnan(lon_lat[:, 0]))
+            cls._group(topo, lon_lat[indices], indices, label)
 
-        cls._group(topo, lon_lat, indices, label)
         return labels
 
 
